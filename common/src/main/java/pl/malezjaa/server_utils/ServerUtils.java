@@ -11,9 +11,15 @@ public final class ServerUtils {
 
     public static void init() {
         configManager = new ConfigManager();
+
+        Events.init();
     }
 
     public static ConfigManager getConfigManager() {
         return configManager;
+    }
+
+    public static ServerConfig config() {
+        return configManager.config();
     }
 }

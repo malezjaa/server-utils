@@ -29,6 +29,10 @@ public class ConfigManager {
         loadConfig();
     }
 
+    public ServerConfig config() {
+        return config;
+    }
+
     private void loadConfig() {
         if (configFile.exists()) {
             LOGGER.info("Config file exists at {}", configFile);
@@ -72,9 +76,5 @@ public class ConfigManager {
         } catch (Exception e) {
             LOGGER.error("Failed to save config file", e);
         }
-    }
-
-    public ServerConfig getConfig() {
-        return config;
     }
 }
