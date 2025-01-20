@@ -4,8 +4,6 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 import pl.malezjaa.server_utils.ChatUtils;
-import pl.malezjaa.server_utils.SUPlayer;
-import pl.malezjaa.server_utils.ServerConfig;
 import pl.malezjaa.server_utils.ServerUtils;
 
 public class Position {

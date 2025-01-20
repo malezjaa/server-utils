@@ -1,4 +1,4 @@
-package pl.malezjaa.server_utils;
+package pl.malezjaa.server_utils.toml;
 
 public class ServerConfig {
     public Homes homes;
