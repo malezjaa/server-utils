@@ -9,4 +9,10 @@ public class ChatUtils {
 
         return 0;
     }
+
+    public static int client_success(ServerPlayer player, String msg) {
+        player.displayClientMessage(Component.literal(msg), false);
+
+        return 1;
+    }
 }

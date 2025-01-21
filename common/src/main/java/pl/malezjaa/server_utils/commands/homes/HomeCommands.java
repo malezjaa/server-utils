@@ -41,12 +41,13 @@ public class HomeCommands implements Command {
     public int setHome(ServerPlayer player, String homeName) {
         SUPlayer pl = SUPlayer.fromMcPlayer(player);
         Position pos = new Position(player.getX(), player.getY(), player.getZ(), player.level().dimension());
+        int limit = ServerUtils.config().homes.limit;
 
-        if (pl.homes().numHomes() >= ServerUtils.config().homes.limit) {
-            return ChatUtils.client_error(player, String.format(ServerUtils.config().homes.limit_reached, ServerUtils.config().homes.limit));
+        if (pl.homes().numHomes() >= limit) {
+            return ChatUtils.client_error(player, String.format(ServerUtils.config().homes.limit_reached, limit));
         }
         pl.homes().addHome(homeName, pos);
 
-        return 1;
+        return ChatUtils.client_success(player, String.format(ServerUtils.config().homes.set_home, homeName, pl.homes().numHomes(), limit));
     }
 }

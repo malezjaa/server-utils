@@ -1,23 +1,9 @@
 package pl.malezjaa.server_utils.toml;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.Level;
 import pl.malezjaa.server_utils.teleports.Position;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.UUID;
-
-import com.fasterxml.jackson.dataformat.toml.TomlMapper;
-import com.fasterxml.jackson.core.JsonGenerator;
-import com.fasterxml.jackson.core.JsonParser;
-import com.fasterxml.jackson.databind.*;
-import com.fasterxml.jackson.databind.module.SimpleModule;
-
-import java.io.IOException;
 
 public class SavedPlayer {
     private UUID uuid;
