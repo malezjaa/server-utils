@@ -27,6 +27,11 @@ public class HomeCommands implements Command {
                         .requires(source -> source.hasPermission(2))
                         .then(Commands.argument("name", StringArgumentType.greedyString())
                                 .executes(context -> setHome(context.getSource().getPlayerOrException(), StringArgumentType.getString(context, "name")))
+                        ),
+                Commands.literal("delhome")
+                        .requires(source -> source.hasPermission(2))
+                        .then(Commands.argument("name", StringArgumentType.greedyString())
+                                .executes(context -> delHome(context.getSource().getPlayerOrException(), StringArgumentType.getString(context, "name")))
                         )
         );
     }
@@ -49,5 +54,16 @@ public class HomeCommands implements Command {
         pl.homes().addHome(homeName, pos);
 
         return ChatUtils.client_success(player, String.format(ServerUtils.config().homes.set_home, homeName, pl.homes().numHomes(), limit));
+    }
+
+    public int delHome(ServerPlayer player, String homeName) {
+        SUPlayer pl = SUPlayer.fromMcPlayer(player);
+
+        if (!pl.homes().has(homeName)) {
+            return ChatUtils.client_error(player, String.format(ServerUtils.config().homes.deleted_nonexistent_code, homeName));
+        }
+        pl.homes().playerHomes.remove(homeName);
+
+        return ChatUtils.client_success(player, String.format(ServerUtils.config().homes.deleted_home, homeName));
     }
 }
