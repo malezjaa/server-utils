@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import static pl.malezjaa.server_utils.ServerUtils.LOGGER;
 import static pl.malezjaa.server_utils.ServerUtils.MOD_ID;
 
 //! We currently have the serialization in here, because compiler returns some wierd errors.
@@ -92,7 +93,7 @@ class SavedPlayerTomlModule extends SimpleModule {
 
 public class SUPlayer {
     private static final Map<UUID, SUPlayer> players = new HashMap<>();
-    private static HomesManager homes = new HomesManager();
+    public static HomesManager homes = new HomesManager();
 
     String name;
     UUID uuid;
@@ -111,6 +112,7 @@ public class SUPlayer {
 
     public static void loadFromData(ServerPlayer pl) {
         Path filePath = Platform.getGameFolder().resolve(Path.of("world", MOD_ID, "playerdata", pl.getStringUUID() + ".toml"));
+        LOGGER.info("Loading player data for " + pl.getStringUUID() + " from " + filePath);
 
         TomlFileManager<SavedPlayer> playerManager = new TomlFileManager<>(
                 filePath,
@@ -122,10 +124,13 @@ public class SUPlayer {
         );
 
         SavedPlayer savedPlayer = playerManager.getContent();
+        SUPlayer player = SUPlayer.fromMcPlayer(pl);
 
-        if (savedPlayer == null) {
-            players.put(pl.getUUID(), new SUPlayer(pl.getUUID(), pl.getName().getString()));
+        if (savedPlayer != null) {
+            player.homes = HomesManager.fromSaved(savedPlayer);
         }
+
+        players.put(pl.getUUID(), player);
     }
 
     public HomesManager homes() {
