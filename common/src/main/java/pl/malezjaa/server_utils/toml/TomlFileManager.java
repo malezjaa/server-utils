@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.nio.file.Path;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 public class TomlFileManager<T> {
@@ -24,6 +25,19 @@ public class TomlFileManager<T> {
         this.type = type;
         this.defaultContent = defaultContent;
         initialize();
+    }
+
+    public TomlFileManager(
+            Path filePath,
+            Class<T> type,
+            Supplier<String[]> defaultContent,
+            Consumer<TomlMapper> tomlMapperModifier) {
+        this.file = filePath.toFile();
+        this.type = type;
+        this.defaultContent = defaultContent;
+
+        this.mapper = new TomlMapper();
+        tomlMapperModifier.accept(this.mapper);
     }
 
     private void initialize() {

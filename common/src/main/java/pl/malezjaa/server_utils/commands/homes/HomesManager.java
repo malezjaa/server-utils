@@ -11,7 +11,7 @@ import pl.malezjaa.server_utils.toml.SavedPlayer;
 import java.util.HashMap;
 
 public class HomesManager implements TeleportManager {
-    private final HashMap<String, Position> playerHomes = new HashMap<>();
+    public final HashMap<String, Position> playerHomes = new HashMap<>();
 
     @Override
     public int teleport(ServerPlayer player, String destination) {
@@ -38,5 +38,13 @@ public class HomesManager implements TeleportManager {
         }
 
         return homesManager;
+    }
+
+    public void addHome(String name, Position pos) {
+        playerHomes.put(name, pos);
+    }
+
+    public int numHomes() {
+        return playerHomes.size();
     }
 }
